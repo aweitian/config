@@ -1,0 +1,32 @@
+{
+  "name": "aweitian/config",
+  "description": "用于管理网站配置项",
+  "type": "project",
+  "keywords": [
+    "aweitian",
+    "tiananwei",
+    "config"
+  ],
+  "homepage": "https://github.com/aweitian/config",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "awei.tian@qq.com",
+      "email": "531164479@qq.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.4.0",
+    "vlucas/phpdotenv": "~2.0"
+  },
+  "require-dev": {
+        "phpunit/phpunit": "~5.0"
+  },
+  "autoload": {
+    "files": [],
+    "psr-4": {
+      "Tian\\": "src/"
+    }
+  }
+}
