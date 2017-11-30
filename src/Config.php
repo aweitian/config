@@ -1,7 +1,7 @@
 <?php
 /**
- * 2017/4/26 17:36:25
- * IOC容器
+ * 2017/5/15 17:36:25
+ * config component
  */
 namespace Tian;
 
