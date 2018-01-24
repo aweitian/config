@@ -1,6 +1,6 @@
 <?php
 
-return [
+return array(
 
     /*
     |--------------------------------------------------------------------------
@@ -13,9 +13,9 @@ return [
     */
 
     'name' => 'Laravel',
-    'arr' => [
+    'arr' => array(
       'foo' => 'bar'
-    ],
+    ),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -128,14 +128,14 @@ return [
     |
     */
 
-    'providers' => [
+    'providers' => array(
 
         /*
          * Laravel Framework Service Providers...
          */
 
 
-    ],
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -148,7 +148,7 @@ return [
     |
     */
 
-    'aliases' => [
+    'aliases' => array(
 
 //        'App' => Illuminate\Support\Facades\App::class,
 //        'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -184,5 +184,5 @@ return [
 //        'Validator' => Illuminate\Support\Facades\Validator::class,
 //        'View' => Illuminate\Support\Facades\View::class,
 
-    ],
-];
+    ),
+);

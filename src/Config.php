@@ -3,14 +3,13 @@
  * 2017/5/15 17:36:25
  * config component
  */
-namespace Tian;
+namespace Aw;
 
-use Dotenv\Dotenv;
 
 class Config
 {
 	//配置集合
-    protected $items = [];
+    protected $items = array();
     //批量设置配置项
     public function batch(array $config)
     {
@@ -20,30 +19,6 @@ class Config
         return true;
     }
 
-    /**
-     * 设置.env目录
-     * 设置变量到$_EVN环境变量上去
-     * @param  string $path
-     * @param string $file
-     * @return void
-     */
-    public function loadEnv($path = '.', $file = '.env')
-    {
-        (new Dotenv($path, $file))->load();
-    }
-
-    /**
-     * 设置.env目录
-     *
-     * @param $name
-     * @param null $value
-     * @return null
-     */
-    public function env($name, $value = null)
-    {
-        return getenv($name) ?: $value;
-    }
-      
     /**
      * 加载目录下的所有文件
      *
@@ -70,7 +45,7 @@ class Config
         $config = explode('.', $key);
         foreach ((array)$config as $d) {
             if ( ! isset($tmp[$d])) {
-                $tmp[$d] = [];
+                $tmp[$d] = array();
             }
             $tmp = &$tmp[$d];
         }
@@ -107,7 +82,7 @@ class Config
     public function getExName($key, array $extame)
     {
         $config = $this->get($key);
-        $data   = [];
+        $data   = array();
         foreach ((array)$config as $k => $v) {
             if ( ! in_array($k, $extame)) {
                 $data[$k] = $v;
