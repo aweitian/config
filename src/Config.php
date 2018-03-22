@@ -3,13 +3,15 @@
  * 2017/5/15 17:36:25
  * config component
  */
+
 namespace Aw;
 
 
 class Config
 {
-	//配置集合
+    //配置集合
     protected $items = array();
+
     //批量设置配置项
     public function batch(array $config)
     {
@@ -26,11 +28,12 @@ class Config
      */
     public function loadFiles($dir)
     {
-        foreach (glob($dir.'/*') as $f) {
+        foreach (glob($dir . '/*') as $f) {
             $info = pathinfo($f);
             $this->set($info['filename'], include $f);
         }
     }
+
     /**
      * 添加配置
      *
@@ -41,10 +44,10 @@ class Config
      */
     public function set($key, $name)
     {
-        $tmp    = &$this->items;
+        $tmp = &$this->items;
         $config = explode('.', $key);
         foreach ((array)$config as $d) {
-            if ( ! isset($tmp[$d])) {
+            if (!isset($tmp[$d])) {
                 $tmp[$d] = array();
             }
             $tmp = &$tmp[$d];
@@ -52,15 +55,16 @@ class Config
         $tmp = $name;
         return true;
     }
+
     /**
-     * @param string $key     配置标识
-     * @param mixed  $default 配置不存在时返回的默认值
+     * @param string $key 配置标识
+     * @param mixed $default 配置不存在时返回的默认值
      *
      * @return array|mixed|null
      */
     public function get($key, $default = null)
     {
-        $tmp    = $this->items;
+        $tmp = $this->items;
         $config = explode('.', $key);
         foreach ((array)$config as $d) {
             if (isset($tmp[$d])) {
@@ -82,14 +86,15 @@ class Config
     public function getExName($key, array $extame)
     {
         $config = $this->get($key);
-        $data   = array();
+        $data = array();
         foreach ((array)$config as $k => $v) {
-            if ( ! in_array($k, $extame)) {
+            if (!in_array($k, $extame)) {
                 $data[$k] = $v;
             }
         }
         return $data;
     }
+
     /**
      * 检测配置是否存在
      *
@@ -99,7 +104,7 @@ class Config
      */
     public function has($key)
     {
-        $tmp    = $this->items;
+        $tmp = $this->items;
         $config = explode('.', $key);
         foreach ((array)$config as $d) {
             if (isset($tmp[$d])) {
@@ -110,6 +115,28 @@ class Config
         }
         return true;
     }
+
+    /**
+     * 删除最后一节
+     * @param $key
+     * @return bool
+     */
+    public function remove($key)
+    {
+        $tmp = &$this->items;
+        $config = explode('.', $key);
+        for ($i = 0; $i < count($config) - 1; $i++) {
+            if (!isset($tmp[$config[$i]])) {
+                return false;
+            }
+            $tmp = &$tmp[$config[$i]];
+        }
+        if (isset($config[$i])) {
+            unset($tmp[$config[$i]]);
+        }
+    }
+
+
     /**
      * 获取所有配置项
      *
@@ -119,6 +146,7 @@ class Config
     {
         return $this->items;
     }
+
     /**
      * 设置items也就是一次更改全部配置
      *
@@ -129,5 +157,5 @@ class Config
     public function setItems($items)
     {
         return $this->items = $items;
-    }	
+    }
 }
