@@ -96,6 +96,69 @@ class Config
     }
 
     /**
+     * Flatten a multi-dimensional array into a single level.
+     *
+     * @param  array $array
+     * @param string $path
+     * @param int $depth
+     * @return array
+     */
+    public function flatten($array = null, $path = '', $depth = INF)
+    {
+        if (is_null($array)) {
+            $array = $this->items;
+        }
+        $result = array();
+        foreach ($array as $key => $item) {
+            if (!is_array($item)) {
+                $result[$path ? $path . "." . $key : $key] = $item;
+            } elseif ($depth === 1) {
+                $result = array_merge($result, $item);
+            } else {
+                $result = array_merge($result, $this->flatten($item, $path ? $path . "." . $key : $key, $depth - 1));
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * @param $keys
+     * @return array
+     */
+    public function filterIn($keys)
+    {
+        if (is_string($keys)) {
+            $keys = explode(',', $keys);
+        }
+        $ret = array();
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $this->items)) {
+                $ret[$key] = $this->items[$key];
+            }
+        }
+        return $ret;
+    }
+
+    /**
+     * @param $keys
+     * @return array
+     */
+    public function filterNotIn($keys)
+    {
+        if (is_string($keys)) {
+            $keys = explode(',', $keys);
+        }
+        $ret = array();
+        $data = $this->flatten();
+        foreach ($data as $k => $item) {
+            if (!in_array($k, $keys)) {
+                $ret[$k] = $data[$k];
+            }
+        }
+        return $ret;
+    }
+
+    /**
      * 检测配置是否存在
      *
      * @param $key
